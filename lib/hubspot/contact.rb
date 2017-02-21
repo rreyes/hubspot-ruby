@@ -29,6 +29,13 @@ module Hubspot
         response = Hubspot::Connection.post_json(CREATE_CONTACT_PATH, params: {}, body: post_data )
         new(response)
       end
+      
+      def real_create!(params={})
+        #params_with_email = params.stringify_keys.merge('email' => email)
+        post_data = {properties: Hubspot::Utils.hash_to_properties(params)}
+        response = Hubspot::Connection.post_json(CREATE_CONTACT_PATH, params: {}, body: post_data )
+        new(response)
+      end
 
       # {https://developers.hubspot.com/docs/methods/contacts/get_contacts}
       # {https://developers.hubspot.com/docs/methods/contacts/get_recently_updated_contacts}
